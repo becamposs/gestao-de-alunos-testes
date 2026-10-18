@@ -31,7 +31,7 @@ describe('Gestão de Alunos API', () => {
             expect(resposta.status).to.equal(200);
             expect(resposta.body).to.have.property('token');
             expect(resposta.body).to.have.property('usuario');
-            expect(resposta.body.usuario.papel).to.equal('admin');
+            expect(resposta.body.usuario.role).to.equal('admin');
         });
     });
 
@@ -57,7 +57,7 @@ describe('Gestão de Alunos API', () => {
             const primeiroAluno = alunos[0];
             const loginResposta = await loginAluno(primeiroAluno.email, primeiroAluno.senha);
             tokenAluno = loginResposta.token;
-            alunoId = loginResposta.usuario._id;
+            alunoId = loginResposta.usuario.id;
             const disciplinaResposta = await request
                 .post('/api/admin/disciplinas')
                 .set('Authorization', `Bearer ${tokenAdmin}`)
@@ -76,7 +76,7 @@ describe('Gestão de Alunos API', () => {
                 .send({ email: primeiroAluno.email, senha: primeiroAluno.senha });
             expect(resposta.status).to.equal(200);
             expect(resposta.body).to.have.property('token');
-            expect(resposta.body.usuario.papel).to.equal('aluno');
+            expect(resposta.body.usuario.role).to.equal('aluno');
         });
 
         trabalhos.forEach((trabalho) => {
