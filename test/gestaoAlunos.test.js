@@ -5,8 +5,11 @@ import { loginAdmin } from '../helpers/adminHelper.js';
 import { loginAluno } from '../helpers/alunoHelper.js';
 import { readFileSync } from 'fs';
 
-const request = supertest(process.env.BASE_URL);
-const alunos = JSON.parse(readFileSync('./data/alunos.json', 'utf-8'));
+const timestamp = Date.now();
+const alunos = JSON.parse(readFileSync('./data/alunos.json', 'utf-8')).map(a => ({
+    ...a,
+    email: `${timestamp}.${a.email}`
+}));
 const trabalhos = JSON.parse(readFileSync('./data/trabalhos.json', 'utf-8'));
 
 describe('Gestão de Alunos API', () => {
