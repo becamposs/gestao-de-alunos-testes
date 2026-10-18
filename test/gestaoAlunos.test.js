@@ -8,7 +8,8 @@ import { readFileSync } from 'fs';
 const timestamp = Date.now();
 const alunos = JSON.parse(readFileSync('./data/alunos.json', 'utf-8')).map(a => ({
     ...a,
-    email: `${timestamp}.${a.email}`
+    email: `${timestamp}.${a.email}`,
+    matricula: `${timestamp}${a.matricula}`
 }));
 const trabalhos = JSON.parse(readFileSync('./data/trabalhos.json', 'utf-8'));
 const request = supertest(process.env.BASE_URL);
