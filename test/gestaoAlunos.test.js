@@ -62,7 +62,7 @@ describe('Gestão de Alunos API', () => {
                 .post('/api/admin/disciplinas')
                 .set('Authorization', `Bearer ${tokenAdmin}`)
                 .send({ nome: 'Automação de Testes', codigo: 'AT001' });
-            disciplinaId = disciplinaResposta.body._id;
+            disciplinaId = disciplinaResposta.body._id || disciplinaResposta.body.id;
             await request
                 .post(`/api/admin/disciplinas/${disciplinaId}/matriculas`)
                 .set('Authorization', `Bearer ${tokenAdmin}`)
