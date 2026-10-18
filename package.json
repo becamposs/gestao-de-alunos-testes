@@ -1,0 +1,15 @@
+{
+  "name": "gestao-de-alunos-testes",
+  "version": "1.0.0",
+  "description": "Testes automatizados da API Gestão de Alunos",
+  "type": "module",
+  "scripts": {
+    "test": "mocha test/**/*.test.js --exit"
+  },
+  "dependencies": {
+    "chai": "^6.2.2",
+    "dotenv": "^16.4.5",
+    "mocha": "^11.8.0",
+    "supertest": "^7.2.2"
+  }
+}

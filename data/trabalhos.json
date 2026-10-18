@@ -1,0 +1,4 @@
+[
+  {"titulo": "Trabalho sobre Automação de Testes", "descricao": "Implementação de testes automatizados com Mocha e SuperTest"},
+  {"titulo": "Trabalho sobre CI/CD", "descricao": "Configuração de pipeline no GitHub Actions"}
+]

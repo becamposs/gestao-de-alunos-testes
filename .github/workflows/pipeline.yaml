@@ -1,0 +1,44 @@
+name: 'Pipeline Gestão de Alunos'
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    services:
+      mongodb:
+        image: mongo:7
+        ports:
+          - 27017:27017
+    steps:
+      - name: Clonando repositório de testes
+        uses: actions/checkout@v4
+      - name: Clonando repositório da API
+        uses: actions/checkout@v4
+        with:
+          repository: becamposs/gestao-de-alunos-api
+          path: api
+      - name: Instalando Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+      - name: Instalando dependências da API
+        working-directory: api
+        run: npm install
+      - name: Subindo a API em segundo plano
+        working-directory: api
+        run: npm start &
+        env:
+          MONGODB_URI: mongodb://localhost:27017/gestao-de-alunos
+          PORT: 3000
+      - name: Aguardando a API ficar disponível
+        run: npx wait-on http://localhost:3000 --timeout 30000
+      - name: Instalando dependências dos testes
+        run: npm ci
+      - name: Executando os testes
+        run: npm test
+        env:
+          BASE_URL: http://localhost:3000
+          ADMIN_EMAIL: ${{ secrets.ADMIN_EMAIL }}
+          ADMIN_SENHA: ${{ secrets.ADMIN_SENHA }}
