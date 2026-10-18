@@ -11,7 +11,7 @@ const alunos = JSON.parse(readFileSync('./data/alunos.json', 'utf-8')).map(a => 
     email: `${timestamp}.${a.email}`
 }));
 const trabalhos = JSON.parse(readFileSync('./data/trabalhos.json', 'utf-8'));
-
+const request = supertest(process.env.BASE_URL);
 describe('Gestão de Alunos API', () => {
     let tokenAdmin;
     let tokenAluno;
