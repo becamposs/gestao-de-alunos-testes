@@ -43,11 +43,11 @@ describe('Gestão de Alunos API', () => {
                     .set('Authorization', `Bearer ${tokenAdmin}`)
                     .send(aluno);
                 expect(resposta.status).to.equal(201);
-                expect(resposta.body).to.have.property('_id');
+                expect(resposta.body).to.have.property('id');
                 expect(resposta.body.nome).to.equal(aluno.nome);
                 expect(resposta.body.email).to.equal(aluno.email);
                 expect(resposta.body.matricula).to.equal(aluno.matricula);
-                if (!alunoId) { alunoId = resposta.body._id; }
+                if (!alunoId) { alunoId = resposta.body.id; }
             });
         });
     });
@@ -86,7 +86,7 @@ describe('Gestão de Alunos API', () => {
                     .set('Authorization', `Bearer ${tokenAluno}`)
                     .send({ disciplinaId, titulo: trabalho.titulo, descricao: trabalho.descricao });
                 expect(resposta.status).to.equal(201);
-                expect(resposta.body).to.have.property('_id');
+                expect(resposta.body).to.have.property('id');
                 expect(resposta.body.titulo).to.equal(trabalho.titulo);
                 expect(resposta.body.status).to.equal('entregue');
             });
